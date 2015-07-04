@@ -19,13 +19,13 @@ defmodule AssemblaApi.Spaces do
     {:ok, %{body: body, status_code: 200}} = Request.get("/spaces")
     IO.puts inspect body
     result = Poison.Decode.decode(body, as: [Space])
-    result
+    {:ok, result}
   end
 
   def get(space_id) do
     # TODO Catch 404
     {:ok, %{body: body, status_code: 200}} = Request.get("/spaces/#{space_id}")
     result = Poison.Decode.decode(body, as: Space)
-    result
+    {:ok, result}
   end
 end

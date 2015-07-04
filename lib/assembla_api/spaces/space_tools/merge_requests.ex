@@ -17,8 +17,6 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests do
     {:ok, %{body: body, headers: _hdrs, status_code: 200}} =
       Request.get(url(space_id, tool_id), [], params: params)
 
-    #IO.puts inspect(hdrs)
-
     result = Poison.Decode.decode(body, as: [MergeRequest])
     {:ok, result}
   end
@@ -38,8 +36,6 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests do
     {:ok, %{body: body, headers: _hdrs, status_code: status}} =
       Request.post(url(space_id, tool_id), %{merge_request: fields},
         [{"Content-Type", "application/json"}])
-
-    IO.puts inspect(body)
 
     case status do
       201 -> {:ok, Poison.Decode.decode(body, as: MergeRequest)}

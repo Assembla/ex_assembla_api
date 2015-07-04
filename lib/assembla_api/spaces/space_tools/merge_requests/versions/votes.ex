@@ -13,7 +13,7 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests.Versions.Votes do
       Request.get(url(space_id, tool_id, mr_id, version))
     IO.puts inspect(body)
     result = Poison.Decode.decode(body, as: [Vote])
-    result
+    {:ok, result}
   end
 
   def upvote(space_id, tool_id, mr_id, version) do
@@ -34,7 +34,7 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests.Versions.Votes do
     end
   end
 
-  # Remove auth user vote from MR
+  # Removes auth user vote from MR
   def remove(space_id, tool_id, mr_id, version) do
     delete(space_id, tool_id, mr_id, version)
   end

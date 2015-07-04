@@ -14,13 +14,13 @@ defmodule AssemblaApi.Spaces.SpaceTools do
     # TODO handle 404
     {:ok, %{body: body, status_code: 200}} = Request.get("/spaces/#{space_id}/space_tools")
     result = Poison.Decode.decode(body, as: [SpaceTool])
-    result
+    {:ok, result}
   end
 
   def get(space_id, id) do
     {:ok, %{body: body, status_code: 200}} = Request.get("/spaces/#{space_id}/space_tools/#{id}")
     result = Poison.Decode.decode(body, as: SpaceTool)
-    result
+    {:ok, result}
   end
 
   def meta do
