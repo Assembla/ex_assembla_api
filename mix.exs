@@ -1,12 +1,15 @@
 defmodule AssemblaApi.Mixfile do
   use Mix.Project
 
+  @github_url "https://github.com/Assembla/ex_assembla_api"
+
   def project do
     [app: :assembla_api,
      version: "0.0.1",
      elixir: "~> 1.0",
      description: "Assembla API client",
      package: package,
+     source_url: @github_url,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
@@ -31,6 +34,8 @@ defmodule AssemblaApi.Mixfile do
   defp deps do
     # {:oauth2cli, "~> 0.0"}
     [
+      {:earmark, "~> 0.1", only: :dev},
+      {:ex_doc, "~> 0.7", only: :dev},
       {:httpoison, "~> 0.7"},
       {:poison,    "~> 1.4"}
     ]
@@ -39,6 +44,6 @@ defmodule AssemblaApi.Mixfile do
   defp package do
     [contributors: ["Vitalie Lazu"],
      licenses: ["MIT"],
-     links: %{"Github" => "https://github.com/Assembla/ex_assembla_api"}]
+     links: %{"Github" => @github_url}]
   end
 end

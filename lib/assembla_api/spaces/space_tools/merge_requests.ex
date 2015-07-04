@@ -11,8 +11,13 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests do
     @type t :: %MergeRequest{id: integer, commit: binary, description: binary}
   end
 
-  # options page, per_page, status: :open, :closed, :ignored
-  # per_page default to 10
+  @doc """
+  Lists merge request by `space_id` and `tool_id` and `params`
+
+  options page, per_page, status: :open, :closed, :ignored
+  per_page default to 10
+  """
+  @spec list(String.t, String.t, map) :: [MergeRequest.t]
   def list(space_id, tool_id, params \\ %{}) do
     {:ok, %{body: body, headers: _hdrs, status_code: 200}} =
       Request.get(url(space_id, tool_id), [], params: params)
@@ -21,6 +26,9 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests do
     {:ok, result}
   end
 
+  @doc """
+  Views a merge request.
+  """
   @spec get(binary, binary, number) :: MergeRequest.t
   def get(space_id, tool_id, id) do
     {:ok, %{body: body, headers: _hdrs, status_code: 200}} =
@@ -30,8 +38,12 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests do
     {:ok, result}
   end
 
-  # Required field: title, source_symbol, target_symbol
-  @spec create(String.t, String.t, %{}) :: {:ok, MergeRequest.t} | {:error, Dict.t}
+  @doc """
+  Creates a merge request.
+
+  Required field: title, source_symbol, target_symbol
+  """
+  @spec create(String.t, String.t, %{}) :: {:ok, MergeRequest.t} | {:error, map}
   def create(space_id, tool_id, fields \\ %{}) do
     {:ok, %{body: body, headers: _hdrs, status_code: status}} =
       Request.post(url(space_id, tool_id), %{merge_request: fields},
