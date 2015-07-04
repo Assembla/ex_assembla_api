@@ -5,6 +5,8 @@ defmodule AssemblaApi.Mixfile do
     [app: :assembla_api,
      version: "0.0.1",
      elixir: "~> 1.0",
+     description: "Assembla API client",
+     package: package,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
@@ -32,5 +34,11 @@ defmodule AssemblaApi.Mixfile do
       {:httpoison, "~> 0.7"},
       {:poison,    "~> 1.4"}
     ]
+  end
+
+  defp package do
+    [contributors: ["Vitalie Lazu"],
+     licenses: ["MIT"],
+     links: %{"Github" => "https://github.com/Assembla/ex_assembla_api"}]
   end
 end
