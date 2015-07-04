@@ -8,22 +8,28 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests.Versions.Comments do
                         updated_at: String.t}
   end
 
+  @doc """
+  Returns a list of comments from merge request version.
+  """
   @spec list(binary, binary, number, number) :: {:ok, [Comment.t]} | {:error, term}
   def list(space_id, tool_id, mr_id, version) do
     {:ok, %{body: body, headers: _hdrs, status_code: 200}} =
       Request.get(url(space_id, tool_id, mr_id, version))
-    IO.puts inspect(body)
+    #IO.puts inspect(body)
     result = Poison.Decode.decode(body, as: [Comment])
     {:ok, result}
   end
 
+  @doc """
+  Creates a comment on merge request version.
+  """
   @spec create(String.t, String.t, integer, integer, binary) :: {:ok, Comment.t} | {:error, term}
   def create(space_id, tool_id, mr_id, version, comment) do
     {:ok, %{body: body, headers: _hdrs, status_code: status}} =
       Request.post(url(space_id, tool_id, mr_id, version), %{content: comment},
         [{"Content-Type", "application/json"}])
 
-    IO.puts inspect(body)
+    #IO.puts inspect(body)
 
     case status do
       201 -> {:ok, Poison.Decode.decode(body, as: [Comment])}
