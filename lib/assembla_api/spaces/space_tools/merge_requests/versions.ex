@@ -13,7 +13,7 @@ defmodule AssemblaApi.Spaces.SpaceTools.MergeRequests.Versions do
   def list(space_id, tool_id, mr_id) do
     {:ok, %{body: body, headers: _hdrs, status_code: 200}} =
       Request.get("/spaces/#{space_id}/space_tools/#{tool_id}/merge_requests/#{mr_id}/versions")
-    IO.puts inspect(body)
+    #IO.puts inspect(body)
 
     result = Poison.Decode.decode(body, as: [Version])
     {:ok, result}
